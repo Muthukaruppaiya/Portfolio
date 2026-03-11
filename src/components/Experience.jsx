@@ -57,10 +57,10 @@ const projects = [
     ],
     stat: { value: 80, label: 'Reduction in Manual Tracking', suffix: '%' },
     screenshots: [
-      { url: '/src/assets/fuel-mgmt/1.png', title: 'Dashboard Overview' },
-      { url: '/src/assets/fuel-mgmt/2.png', title: 'Profit Analysis' },
-      { url: '/src/assets/fuel-mgmt/3.png', title: 'Supply Report' },
-      { url: '/src/assets/fuel-mgmt/4.png', title: 'Supply Entries' }
+      { url: `${import.meta.env.BASE_URL}fuel-mgmt/1.png`, title: 'Dashboard Overview' },
+      { url: `${import.meta.env.BASE_URL}fuel-mgmt/2.png`, title: 'Profit Analysis' },
+      { url: `${import.meta.env.BASE_URL}fuel-mgmt/3.png`, title: 'Supply Report' },
+      { url: `${import.meta.env.BASE_URL}fuel-mgmt/4.png`, title: 'Supply Entries' }
     ]
   },
 ];
