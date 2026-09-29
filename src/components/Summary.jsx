@@ -44,7 +44,7 @@ export default function Summary() {
               </div>
               <div className="stat-divider" />
               <div className="stat-item">
-                <span className="stat-number" style={{ color: 'var(--accent-blue)' }}>2+</span>
+                <span className="stat-number" style={{ color: 'var(--accent-blue)' }}>3+</span>
                 <span className="stat-label">Projects Delivered</span>
               </div>
               <div className="stat-divider" />

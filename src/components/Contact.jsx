@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Send, MapPin, Mail, Phone, Github, Linkedin, Twitter } from 'lucide-react';
+import { trackContactSubmit, trackSocialClick } from '../utils/analytics';
 import './Contact.css';
 
 export default function Contact() {
@@ -13,7 +14,7 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simulate form send
+    trackContactSubmit(form.name);
     setSent(true);
     setTimeout(() => setSent(false), 4000);
     setForm({ name: '', email: '', message: '' });
@@ -53,14 +54,14 @@ export default function Contact() {
                 <div className="detail-icon"><Mail size={18} /></div>
                 <div>
                   <p className="detail-label">Email</p>
-                  <a href="mailto:sivamkaruppaiya15@gmail.com" className="detail-value">sivamkaruppaiya15@gmail.com</a>
+                  <a href="mailto:sivamkaruppaiya15@gmail.com" className="detail-value" onClick={() => trackSocialClick('Email')}>sivamkaruppaiya15@gmail.com</a>
                 </div>
               </div>
               <div className="contact-detail-item">
                 <div className="detail-icon"><Phone size={18} /></div>
                 <div>
                   <p className="detail-label">Phone</p>
-                  <a href="tel:+916383142368" className="detail-value">+91 6383142368</a>
+                  <a href="tel:+916383142368" className="detail-value" onClick={() => trackSocialClick('Phone')}>+91 6383142368</a>
                 </div>
               </div>
               <div className="contact-detail-item">
@@ -75,13 +76,13 @@ export default function Contact() {
             <div className="contact-socials">
               <p className="socials-label">Find me on</p>
               <div className="socials-row">
-                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="social-btn" id="contact-linkedin" aria-label="LinkedIn">
+                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="social-btn" id="contact-linkedin" aria-label="LinkedIn" onClick={() => trackSocialClick('LinkedIn')}>
                   <Linkedin size={20} />
                 </a>
-                <a href="https://github.com" target="_blank" rel="noreferrer" className="social-btn" id="contact-github" aria-label="GitHub">
+                <a href="https://github.com" target="_blank" rel="noreferrer" className="social-btn" id="contact-github" aria-label="GitHub" onClick={() => trackSocialClick('GitHub')}>
                   <Github size={20} />
                 </a>
-                <a href="https://twitter.com" target="_blank" rel="noreferrer" className="social-btn" id="contact-twitter" aria-label="Twitter">
+                <a href="https://twitter.com" target="_blank" rel="noreferrer" className="social-btn" id="contact-twitter" aria-label="Twitter" onClick={() => trackSocialClick('Twitter')}>
                   <Twitter size={20} />
                 </a>
               </div>

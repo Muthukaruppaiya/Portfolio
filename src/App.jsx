@@ -9,9 +9,14 @@ import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ScreenshotModal from './components/ScreenshotModal';
+import { initGA } from './utils/analytics';
 
 function App() {
   const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    initGA();
+  }, []);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);

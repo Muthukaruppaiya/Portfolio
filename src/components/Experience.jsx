@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Briefcase, Zap, TrendingUp, Code, ExternalLink } from 'lucide-react';
+import { Briefcase, Zap, TrendingUp, Code, ShoppingBag, ExternalLink, Globe } from 'lucide-react';
+import { trackProjectClick } from '../utils/analytics';
 import './Experience.css';
 
 function Counter({ target, suffix = '%', inView }) {
@@ -27,6 +28,22 @@ function Counter({ target, suffix = '%', inView }) {
 }
 
 const projects = [
+  {
+    title: 'H2R Sports - E-Commerce Bat & Cricket Store',
+    company: 'Freelance Client Project',
+    role: 'Freelance Full Stack Developer',
+    period: '2025 - Present',
+    icon: <ShoppingBag size={22} />,
+    color: '#10b981',
+    liveUrl: 'https://h2rsports.in',
+    tags: ['E-Commerce', 'React.js', 'REST APIs', 'UI/UX Design', 'Payment Gateway', 'SEO & Analytics'],
+    points: [
+      'Designed & developed custom e-commerce web platform for premium cricket bats and sports equipment',
+      'Built dynamic product catalog, interactive cart management, and seamless customer order workflows',
+      'Optimized mobile responsiveness, page speed performance, and search engine visibility',
+    ],
+    stat: { value: 100, label: 'Custom Production E-Commerce App', suffix: '%' },
+  },
   {
     title: 'Zimson Watches Feedback System',
     company: 'ABT Business Solutions, Coimbatore',
@@ -79,15 +96,15 @@ export default function Experience() {
           transition={{ duration: 0.6 }}
           className="section-header"
         >
-          <h2 className="section-title">Work <span>Experience</span></h2>
+          <h2 className="section-title">Work Experience & <span>Projects</span></h2>
           <div className="title-underline" />
-          <p className="section-subtitle">Professional experience and project highlights</p>
+          <p className="section-subtitle">Professional experience, client work, and project highlights</p>
         </motion.div>
 
         <div className="exp-company-badge">
           <Briefcase size={18} />
-          <span>ABT Business Solutions, Coimbatore</span>
-          <span className="exp-role-badge">Associate · May 2025 – Present</span>
+          <span>ABT Business Solutions, Coimbatore & Freelance Work</span>
+          <span className="exp-role-badge">Associate & Freelancer · May 2025 – Present</span>
         </div>
 
         <div className="projects-grid">
@@ -137,15 +154,32 @@ export default function Experience() {
                 ))}
               </div>
 
-              {proj.screenshots && (
-                <div className="proj-gallery-btn-wrap">
-                  <button 
-                    className="btn btn-outline btn-sm proj-gallery-btn"
-                    style={{ borderColor: proj.color, color: proj.color }}
-                    onClick={() => window.openScreenshots?.(proj.screenshots)}
-                  >
-                    <ExternalLink size={14} /> View Screenshots
-                  </button>
+              {(proj.screenshots || proj.liveUrl) && (
+                <div className="proj-gallery-btn-wrap" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                  {proj.liveUrl && (
+                    <a
+                      href={proj.liveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn btn-outline btn-sm proj-gallery-btn"
+                      style={{ borderColor: proj.color, color: proj.color }}
+                      onClick={() => trackProjectClick(proj.title, proj.liveUrl)}
+                    >
+                      <Globe size={14} /> Visit Live Site (h2rsports.in)
+                    </a>
+                  )}
+                  {proj.screenshots && (
+                    <button 
+                      className="btn btn-outline btn-sm proj-gallery-btn"
+                      style={{ borderColor: proj.color, color: proj.color }}
+                      onClick={() => {
+                        trackProjectClick(proj.title, 'Screenshots Modal');
+                        window.openScreenshots?.(proj.screenshots);
+                      }}
+                    >
+                      <ExternalLink size={14} /> View Screenshots
+                    </button>
+                  )}
                 </div>
               )}
             </motion.div>

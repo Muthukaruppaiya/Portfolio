@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Phone, Mail, Linkedin, Github, ChevronDown } from 'lucide-react';
+import { trackResumeDownload, trackSocialClick, trackEvent } from '../utils/analytics';
 import './Hero.css';
 
 export default function Hero() {
@@ -146,16 +147,16 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
           >
-            <a href="tel:+916383142368" className="contact-icon-link" aria-label="Phone">
+            <a href="tel:+916383142368" className="contact-icon-link" aria-label="Phone" onClick={() => trackSocialClick('Phone')}>
               <Phone size={16} /> <span>+91 6383142368</span>
             </a>
-            <a href="mailto:sivamkaruppaiya15@gmail.com" className="contact-icon-link" aria-label="Email">
+            <a href="mailto:sivamkaruppaiya15@gmail.com" className="contact-icon-link" aria-label="Email" onClick={() => trackSocialClick('Email')}>
               <Mail size={16} /> <span>sivamkaruppaiya15@gmail.com</span>
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="contact-icon-link" aria-label="LinkedIn">
+            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="contact-icon-link" aria-label="LinkedIn" onClick={() => trackSocialClick('LinkedIn')}>
               <Linkedin size={16} /> <span>LinkedIn</span>
             </a>
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="contact-icon-link" aria-label="GitHub">
+            <a href="https://github.com" target="_blank" rel="noreferrer" className="contact-icon-link" aria-label="GitHub" onClick={() => trackSocialClick('GitHub')}>
               <Github size={16} /> <span>GitHub</span>
             </a>
           </motion.div>
@@ -170,7 +171,11 @@ export default function Hero() {
               href="#experience"
               className="btn btn-primary"
               id="view-projects-btn"
-              onClick={(e) => { e.preventDefault(); document.querySelector('#experience').scrollIntoView({ behavior: 'smooth' }); }}
+              onClick={(e) => {
+                e.preventDefault();
+                trackEvent('click_view_projects_hero', { event_category: 'Navigation' });
+                document.querySelector('#experience').scrollIntoView({ behavior: 'smooth' });
+              }}
             >
               View Projects
             </a>
@@ -180,6 +185,7 @@ export default function Hero() {
               id="download-resume-btn"
               target="_blank"
               rel="noreferrer"
+              onClick={() => trackResumeDownload()}
             >
               Download Resume
             </a>
